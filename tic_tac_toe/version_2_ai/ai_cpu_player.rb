@@ -1,28 +1,25 @@
 require_relative 'board'
 
 class ComputerPlayer
-  attr_accessor :board
+  attr_reader :mark
 
-  def initialize
-    @board = Board.new
+  def initialize(mark_value, board)
+    @mark = mark_value
+    @board = board
   end
 
-  def get_move
-    puts "Computer's turn"
-    sleep(1)
-    @board.display_board
+  # Pick a random empty position on the board
+  def get_position
     puts "Computer is thinking..."
     sleep(1)
-    @board.available_spaces.sample
-  end
-
-  def make_move(move)
-    @board.update_board(move, "O")
-  end
-
-  def game_over?
-    @board.game_over?
+    open_positions = []
+    (0..2).each do |row|
+      (0..2).each do |col|
+        open_positions << [row, col] if @board.empty?([row, col])
+      end
+    end
+    pos = open_positions.sample
+    puts "Computer (#{@mark}) plays #{pos[0]} #{pos[1]}"
+    pos
   end
 end
-
-# Adding a computer player to tic tac toe game in Ruby

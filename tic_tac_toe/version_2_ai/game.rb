@@ -1,11 +1,12 @@
 require_relative 'board.rb'
 require_relative 'human_player.rb'
+require_relative 'ai_cpu_player.rb'
 
 class Game
   def initialize(player_1_mark, player_2_mark)
     @board = Board.new
     @player_1 = HumanPlayer.new(player_1_mark)
-    @player_2 = HumanPlayer.new(player_2_mark)
+    @player_2 = ComputerPlayer.new(player_2_mark, @board)
     @current_player = @player_1
   end
 
